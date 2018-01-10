@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  roles:
+    - pyslackers.postgres
+    - ansible-role-gitea
+  vars:
+    # pyslackers.postgres variables
+    postgres_users:
+      gitea:
+        password: supersecurepassword
+
+    gitea_db_password: supersecurepassword
+
+    gitea_admin_username: user1
+    gitea_admin_password: password
+    gitea_admin_email: gitea@example.com
+
+    gitea_internal_token: superlongandsupersecuretoken&superlongandsupersecuretoken&superlongandsupersecuretoken&superlongandsupersecuretoken
+    gitea_secret_key: secretkey
+    gitea_lfs_jwt_secret: randomfortythreecharacterlenghtstringsecret
