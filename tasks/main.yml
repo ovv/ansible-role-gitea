@@ -1,0 +1,73 @@
+---
+
+- name: Requirements
+  apt:
+    pkg: git
+    state: latest
+
+- name: create group
+  group:
+    name: "{{ gitea_group }}"
+    state: present
+
+- name: create user
+  user:
+    name: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    home: "{{ gitea_home }}"
+    comment: Gitea
+
+- name: download
+  get_url:
+    url: "{{ gitea_download_url }}"
+    dest: /usr/bin/gitea
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: 0755
+
+- name: directories
+  file:
+    path: "{{ item }}"
+    owner: gitea
+    group: root
+    state: directory
+  with_items:
+    - /etc/gitea
+    - /etc/gitea/conf
+
+- name: configuration
+  template:
+    src: "{{ item }}.j2"
+    dest: "/{{ item }}"
+  notify: restart gitea
+  with_items:
+    - etc/gitea/.env
+    - etc/gitea/conf/app.ini
+
+- name: unit file
+  template:
+    src: etc/systemd/system/gitea.service.j2
+    dest: /etc/systemd/system/gitea.service
+  notify: restart gitea
+
+- name: enable and start the gitea web service
+  service:
+    name: gitea
+    state: started
+    enabled: yes
+    daemon-reload: yes
+  register: gitea_started
+
+- name: wait for start
+  pause:
+    seconds: 10
+  when: gitea_started.changed
+
+- name: create user
+  become: true
+  become_user: "{{ gitea_user }}"
+  command: "gitea admin create-user --name {{ gitea_admin_username }} --password {{ gitea_admin_password }} --email {{ gitea_admin_email }} --config /etc/gitea/conf/app.ini --admin"
+  register: gitea_create_user
+  changed_when: '"successfully created" in gitea_create_user.stdout'
+  failed_when: '"successfully created" not in gitea_create_user.stdout and "user already exists" not in gitea_create_user.stderr'
+  when: gitea_started.changed
