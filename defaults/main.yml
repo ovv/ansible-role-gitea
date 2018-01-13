@@ -11,6 +11,7 @@ gitea_db_user: gitea
 gitea_db_name: gitea
 
 gitea_http_port: 3000
+gitea_http_addr: 0.0.0.0
 gitea_ssh_domain: localhost
 gitea_ssh_port: 22
 gitea_noreply_addr: noreply@example.com
