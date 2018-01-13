@@ -38,6 +38,7 @@ Role Variables
 * `gitea_db_password`: Password of the database.
 
 * `gitea_http_port`: Listening http port (default to `3000`).
+* `gitea_http_addr`: Listening http address (default to `0.0.0.0`).
 * `gitea_url`: Extenral access url (default to `http://localhost:{{ gitea_http_port}}`).
 * `gitea_ssh_domain`: Domain for ssh access (default to `localhost`).
 * `gitea_ssh_port`: Listening ssh port (default to `22`).
