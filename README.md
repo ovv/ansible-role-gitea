@@ -31,7 +31,7 @@ Role Variables
 * `gitea_group`: Running group (default to `gitea`).
 * `gitea_user`: Running user (default to `gitea`).
 * `gitea_home`: Home & working directory (default to `/home/gitea`).
-* `gitea_version`: Version to install (default to `1.3.2`).
+* `gitea_version`: Version to install (default to `1.3.3`).
 
 * `gitea_db_name`: Name of the database (default to `gitea`).
 * `gitea_db_user`: Connection user to the database (default to `gitea`).
