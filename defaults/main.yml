@@ -4,7 +4,7 @@ gitea_group: gitea
 gitea_user: gitea
 gitea_home: /home/gitea
 
-gitea_version: 1.3.3
+gitea_version: 1.4.0
 gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ ansible_system | lower }}-{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
 
 gitea_db_user: gitea
