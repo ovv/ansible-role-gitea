@@ -24,6 +24,9 @@
     owner: "{{ gitea_user }}"
     group: "{{ gitea_group }}"
     mode: 0755
+    sha256sum: "{{ gitea_sha256 }}"
+  notify:
+    - restart gitea
 
 - name: directories
   file:
