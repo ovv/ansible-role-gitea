@@ -5,6 +5,7 @@ gitea_user: gitea
 gitea_home: /home/gitea
 
 gitea_version: 1.4.0
+gitea_sha256: f4c4c7eecc6dd8cd5401883a33924223177b4fa0a40ecd867ad90dc6387a4080
 gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ ansible_system | lower }}-{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
 
 gitea_db_user: gitea
